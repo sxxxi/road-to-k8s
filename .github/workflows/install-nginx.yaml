@@ -1,0 +1,24 @@
+name: Install NGINX
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu/latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure SSH Private Key
+        run: |
+          mkdir ~/.ssh
+          echo ${{ secrets.SSH_PRIVATE_KEY }} > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+      - name: Set strict host checking to no
+        run: echo "SetStrictHostKeyChecking=no" > ~/.ssh/config
+      - name: Install Nginx
+        run: |
+          export MY_HOST="${{ secrets EC2_IP_ADDRESS }}" 
+          ssh ec2-user@$MY_HOST sudo apt update
+          ssh ec2-user@$MY_HOST supo apt install -y nginx
+
