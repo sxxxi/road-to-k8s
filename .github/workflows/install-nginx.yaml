@@ -15,7 +15,7 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
       - name: Set strict host checking to no
-        run: echo "SetStrictHostKeyChecking=no" > ~/.ssh/config
+        run: echo "StrictHostKeyChecking=no" > ~/.ssh/config
       - name: Install Nginx
         run: |
           export MY_HOST="${{ secrets.EC2_IP_ADDRESS }}" 
