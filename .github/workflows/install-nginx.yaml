@@ -20,5 +20,7 @@ jobs:
         run: |
           export MY_HOST="${{ secrets.EC2_IP_ADDRESS }}" 
           ssh ec2-user@$MY_HOST sudo yum update -y
-          ssh ec2-user@$MY_HOST sudo yum install -y nginx
+          ssh ec2-user@$MY_HOST sudo yum epel-release install -y nginx
+          ssh ec2-user@$MY_HOST sudo systemctl enable nginx --now
+
 
