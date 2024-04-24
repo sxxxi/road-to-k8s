@@ -19,6 +19,6 @@ jobs:
       - name: Install Nginx
         run: |
           export MY_HOST="${{ secrets.EC2_IP_ADDRESS }}" 
-          ssh root@$MY_HOST sudo apt update
-          ssh root@$MY_HOST sudo apt install nginx -y
+          ssh ec2-user@$MY_HOST sudo yum update -y
+          ssh ec2-user@$MY_HOST sudo yum install -y nginx
 
